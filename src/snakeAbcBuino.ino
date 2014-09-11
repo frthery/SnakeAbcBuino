@@ -50,14 +50,14 @@ B00000000,B00000000,B00000000,B00000000,B00000000,B00000000,B00000000,B00000000,
 //END logo
 
 //sounds variables
-typedef enum soundsFxChannel_t {
+enum soundsFxChannel_t {
   SND_FX_CHANNEL_1 = 0,
   SND_FX_CHANNEL_2 = 1,
   SND_FX_CHANNEL_3 = 2,
   SND_FX_CHANNEL_4 = 3
 };
 
-typedef enum soundsFx_t {
+enum soundsFx_t {
   SND_FX_LETTER = 0,
   SND_FX_GAME_OVER = 1
 };
@@ -117,7 +117,7 @@ void setup(){
   gb.pickRandomSeed();
   
   //display the main menu
-  gb.titleScreen(logo);//F("--- SnakeAbcBuino ---"));
+  gb.titleScreen(logo);
 
   gb.battery.show = false;//hide the battery indicator
 }
@@ -141,7 +141,7 @@ void loop(){
       GameMenu();
     }
     else if (game_over) { 
-       GameOver();
+      GameOver();
     }
   }
 }
@@ -216,15 +216,13 @@ void GameMenu() {
   if(gb.buttons.pressed(BTN_A)){
     gb.sound.playOK();
     
-    //initialize = false;
     game_level = game_menu_level;
     initialize = false;
     game_menu = false;
   }
   if(gb.buttons.pressed(BTN_B)){
     gb.sound.playOK();
-    
-    //initialize = false;
+
     game_menu = false;
   }
   if(gb.buttons.pressed(BTN_C)){
@@ -331,7 +329,7 @@ void MoveSnake() {
       next[1] = last[1];
     }
     
-    //update time
+    //update prevtime
     game_prevTime = game_currentTime;
     snake_has_moved = true;
   }
@@ -434,7 +432,7 @@ void ShowFrame() {
 }
 
 void ShowDebug(String message) {
-  //draw debug line
+  //print debug line
   gb.display.fontSize = 1;
   gb.display.cursorX = 1;
   gb.display.cursorY = 1;
@@ -450,7 +448,7 @@ void PlaySoundFxGameOver() {
   PlaySoundFx(SND_FX_GAME_OVER, SND_FX_CHANNEL_1);
 }
 
-//play Gambuino sound effect (http://www.yodasvideoarcade.com/gamebuino.php)
+//Play Gambuino sound effect (http://www.yodasvideoarcade.com/gamebuino.php)
 void PlaySoundFx(int fxno, int channel) {
   gb.sound.command(0,soundfx[fxno][6],0,channel); // set volume
   gb.sound.command(1,soundfx[fxno][0],0,channel); // set waveform
